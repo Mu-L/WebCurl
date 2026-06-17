@@ -103,7 +103,7 @@
 - **🔌 实时通信支持**：原生支持 WebSocket 和 SSE（Server-Sent Events），满足实时数据推送需求。
 
 ### 🎯 EchoServer 调试服务
-- **🔄 智能请求回显**：自动解析并回显请求的URL、方法、请求头、请求体（文本、表单、文件、二进制等）。
+- **🔄 智能请求回显**：自动解析并回显请求的URL、方法、客户端IP/端口、请求头、请求体（文本、表单、文件、二进制等）。
 - **🎛️ 灵活响应控制**：支持通过自定义请求头或URL参数灵活控制响应内容和行为。
 - **📊 多种响应格式**：支持JSON、XML、Text等多种响应格式。
 - **⏱️ 响应延迟控制**：可自定义响应延迟时间，模拟网络延迟场景。
@@ -537,6 +537,8 @@ curl -H "X-Response-Download: data.txt" http://localhost:4444/api/echo -OJ
 {
   "method": "POST",
   "url": "http://localhost:4444/api/echo",
+  "client_ip": "127.0.0.1",
+  "client_port": "54321",
   "headers": [
     {"key": "Content-Type", "value": "application/json"},
     ...
