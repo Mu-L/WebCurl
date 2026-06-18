@@ -622,6 +622,245 @@
             padding-left: 12px;
         }
     </style>
+    <style id="postman-theme">
+        /* ============================================================
+           Postman 风格主题覆盖（蓝）—— mock.html
+           在原 <style> 之后追加，对视觉属性使用 !important 覆盖原紫色渐变主题。
+           回滚：删除本 <style id="postman-theme"> 块即可。
+           ============================================================ */
+        :root {
+            --pm-canvas: #f2f3f5;
+            --pm-surface: #ffffff;
+            --pm-surface-2: #fafbfc;
+            --pm-surface-3: #f3f4f6;
+            --pm-border: #e4e6eb;
+            --pm-border-2: #d0d5dd;
+            --pm-border-strong: #b9c0c9;
+            --pm-text: #2b2b2b;
+            --pm-text-muted: #6b7280;
+            --pm-text-faint: #9aa0a6;
+            --pm-brand: #1e7ff9;
+            --pm-brand-hover: #0f64d8;
+            --pm-brand-soft: #e8f1fe;
+            --pm-brand-ring: rgba(30, 127, 249, 0.16);
+        }
+
+        body {
+            background: var(--pm-canvas) !important;
+            color: var(--pm-text) !important;
+        }
+
+        /* ---------- 主面板 ---------- */
+        section {
+            background: var(--pm-surface) !important;
+            border: 1px solid var(--pm-border) !important;
+            border-radius: 8px !important;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+        }
+
+        /* ---------- 工具栏 ---------- */
+        .toolbar {
+            background: var(--pm-surface-3) !important;
+            border: 1px solid var(--pm-border) !important;
+            border-radius: 6px !important;
+        }
+
+        /* ---------- 状态徽标（保留语义色，去渐变） ---------- */
+        .status {
+            background: #fff3d6 !important;
+            color: #b7791f !important;
+            box-shadow: none !important;
+            border-radius: 20px !important;
+        }
+
+        .status::before {
+            background: #b7791f !important;
+        }
+
+        .status.running {
+            background: #e7f6ee !important;
+            color: #1f9d57 !important;
+        }
+
+        .status.running::before {
+            background: #1f9d57 !important;
+        }
+
+        /* ---------- 按钮：扁平化，去渐变/上浮/光泽扫光 ---------- */
+        button {
+            background: var(--pm-brand) !important;
+            color: #fff !important;
+            border: 1px solid var(--pm-brand) !important;
+            border-radius: 4px !important;
+            box-shadow: none !important;
+            transition: background .12s ease, border-color .12s ease !important;
+        }
+
+        button::before {
+            display: none !important;
+            content: none !important;
+        }
+
+        button:hover {
+            transform: none !important;
+            box-shadow: none !important;
+            background: var(--pm-brand-hover) !important;
+            border-color: var(--pm-brand-hover) !important;
+        }
+
+        button:active {
+            transform: none !important;
+        }
+
+        button.secondary {
+            background: var(--pm-surface) !important;
+            color: var(--pm-text) !important;
+            border: 1px solid var(--pm-border-2) !important;
+        }
+
+        button.secondary:hover {
+            background: var(--pm-surface-3) !important;
+            border-color: var(--pm-border-strong) !important;
+        }
+
+        button.danger {
+            background: #fff !important;
+            color: #e0533d !important;
+            border: 1px solid #f0bcb4 !important;
+        }
+
+        button.danger:hover {
+            background: #fdecea !important;
+            border-color: #e98a7d !important;
+        }
+
+        button:disabled {
+            background: var(--pm-surface-3) !important;
+            color: var(--pm-text-faint) !important;
+            border-color: var(--pm-border) !important;
+            opacity: 1 !important;
+        }
+
+        .log-clear-btn {
+            background: #fff !important;
+            color: #e0533d !important;
+            border: 1px solid #f0bcb4 !important;
+            border-radius: 4px !important;
+        }
+
+        .log-clear-btn:hover {
+            background: #fdecea !important;
+            border-color: #e98a7d !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* ---------- 表单控件 ---------- */
+        select {
+            background: var(--pm-surface) !important;
+            border: 1px solid var(--pm-border-2) !important;
+            border-radius: 4px !important;
+            color: var(--pm-text) !important;
+        }
+
+        select:focus {
+            border-color: var(--pm-brand) !important;
+            box-shadow: 0 0 0 3px var(--pm-brand-ring) !important;
+        }
+
+        textarea {
+            background: var(--pm-surface-2) !important;
+            border: 1px solid var(--pm-border-2) !important;
+            border-radius: 4px !important;
+            color: var(--pm-text) !important;
+        }
+
+        textarea:focus {
+            border-color: var(--pm-brand) !important;
+            box-shadow: 0 0 0 3px var(--pm-brand-ring) !important;
+            background: #fff !important;
+        }
+
+        textarea::placeholder {
+            color: var(--pm-text-faint) !important;
+        }
+
+        /* ---------- 日志 Tab ---------- */
+        .log-tab {
+            background: var(--pm-surface) !important;
+            color: var(--pm-text-muted) !important;
+            border: 1px solid var(--pm-border) !important;
+            border-bottom: none !important;
+            border-radius: 4px 4px 0 0 !important;
+        }
+
+        .log-tab:hover {
+            background: var(--pm-surface-3) !important;
+            color: var(--pm-text) !important;
+        }
+
+        .log-tab.active {
+            background: var(--pm-brand) !important;
+            color: #fff !important;
+            border-color: var(--pm-brand) !important;
+        }
+
+        .log-tab-badge {
+            background: #e0533d !important;
+            color: #fff !important;
+        }
+
+        /* ---------- 深色日志 / JSON 面板（保留 IDE 风，滚动条去紫） ---------- */
+        .log,
+        .log-panel,
+        .json-formatted {
+            background: #1e2127 !important;
+            color: #c8ccd2 !important;
+            border: 1px solid #2d3436 !important;
+            border-radius: 4px !important;
+        }
+
+        .log::-webkit-scrollbar-track,
+        .log-panel::-webkit-scrollbar-track,
+        #jsonFormattedContainer::-webkit-scrollbar-track {
+            background: #1e2127 !important;
+        }
+
+        .log::-webkit-scrollbar-thumb,
+        .log-panel::-webkit-scrollbar-thumb,
+        #jsonFormattedContainer::-webkit-scrollbar-thumb {
+            background: #4a5060 !important;
+            border-radius: 4px !important;
+        }
+
+        #jsonFormattedContainer {
+            border: 1px solid var(--pm-border) !important;
+            border-radius: 4px !important;
+        }
+
+        .request-log-item {
+            background: rgba(255, 255, 255, 0.04) !important;
+            border-left: 2px solid var(--pm-brand) !important;
+            border-radius: 4px !important;
+        }
+
+        .log-resize-handle {
+            background: var(--pm-surface-3) !important;
+            border-radius: 4px !important;
+        }
+
+        .log-resize-handle:hover {
+            background: var(--pm-brand-soft) !important;
+        }
+
+        .log-resize-handle::before {
+            background: var(--pm-border-strong) !important;
+        }
+
+        .log-resize-handle:hover::before {
+            background: var(--pm-brand) !important;
+        }
+    </style>
 </head>
 
 <body>

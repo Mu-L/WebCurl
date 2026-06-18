@@ -1667,6 +1667,839 @@
             color: white;
         }
     </style>
+    <style id="postman-theme">
+        /* ============================================================
+           Postman 风格主题覆盖（纯 CSS，不改任何原有逻辑/结构）
+           通过在原 <style> 之后追加，并对视觉属性使用 !important，
+           彻底覆盖原有紫色渐变主题。回滚：删除本 <style id="postman-theme"> 块即可。
+           ============================================================ */
+
+        :root {
+            --pm-canvas: #f2f3f5;
+            --pm-surface: #ffffff;
+            --pm-surface-2: #fafbfc;
+            --pm-surface-3: #f3f4f6;
+            --pm-border: #e4e6eb;
+            --pm-border-2: #d0d5dd;
+            --pm-border-strong: #b9c0c9;
+            --pm-text: #2b2b2b;
+            --pm-text-muted: #6b7280;
+            --pm-text-faint: #9aa0a6;
+            --pm-brand: #1e7ff9;
+            --pm-brand-hover: #0f64d8;
+            --pm-brand-soft: #e8f1fe;
+            --pm-brand-ring: rgba(30, 127, 249, 0.16);
+        }
+
+        /* ---------- 全局基底 ---------- */
+        html,
+        body {
+            height: 100% !important;
+        }
+
+        body {
+            background: var(--pm-canvas) !important;
+            padding: 0 !important;
+            color: var(--pm-text) !important;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif !important;
+        }
+
+        /* ---------- 主布局：左侧栏 + 主区，全高（类 Postman） ---------- */
+        .content-wrapper {
+            max-width: none !important;
+            margin: 0 !important;
+            gap: 0 !important;
+            height: 100vh !important;
+            align-items: stretch !important;
+        }
+
+        .content-wrapper-expanded {
+            justify-content: flex-start !important;
+            padding: 0 !important;
+        }
+
+        .aside {
+            width: 380px !important;
+            flex: 0 0 380px !important;
+            height: 100vh !important;
+            max-height: 100vh !important;
+            background: var(--pm-surface) !important;
+            border-right: 1px solid var(--pm-border) !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            padding: 10px !important;
+            overflow-y: auto !important;
+        }
+
+        .main-content {
+            flex: 1 1 auto !important;
+            min-width: 0 !important;
+            height: 100vh !important;
+            overflow-y: auto !important;
+            padding: 14px 18px !important;
+        }
+
+        .main-content-expanded {
+            flex: 1 1 auto !important;
+            max-width: none !important;
+            width: auto !important;
+            margin: 0 !important;
+        }
+
+        /* ---------- 容器面板 ---------- */
+        .container {
+            max-width: none !important;
+            min-width: 0 !important;
+            margin: 0 !important;
+            background: var(--pm-surface) !important;
+            border: 1px solid var(--pm-border) !important;
+            border-radius: 4px !important;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+            padding: 14px !important;
+        }
+
+        /* ---------- 表单控件基底 ---------- */
+        select,
+        input,
+        textarea,
+        button {
+            border-radius: 3px !important;
+        }
+
+        select,
+        input,
+        textarea {
+            border: 1px solid var(--pm-border-2) !important;
+            background: var(--pm-surface) !important;
+            color: var(--pm-text) !important;
+            padding: 6px 10px !important;
+            font-size: 13px !important;
+            box-shadow: none !important;
+            transition: border-color .12s ease, box-shadow .12s ease !important;
+        }
+
+        select:focus,
+        input:focus,
+        textarea:focus {
+            outline: none !important;
+            border-color: var(--pm-brand) !important;
+            box-shadow: 0 0 0 3px var(--pm-brand-ring) !important;
+        }
+
+        input[type=checkbox],
+        input[type=radio] {
+            accent-color: var(--pm-brand) !important;
+        }
+
+        select option {
+            font-size: 13px !important;
+        }
+
+        /* ---------- 按钮：扁平化，去除渐变/上浮/光泽动画 ---------- */
+        button {
+            background: var(--pm-surface) !important;
+            color: var(--pm-text) !important;
+            border: 1px solid var(--pm-border-2) !important;
+            box-shadow: none !important;
+            padding: 6px 12px !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            transition: background .12s ease, border-color .12s ease !important;
+        }
+
+        button::before {
+            display: none !important;
+            content: none !important;
+        }
+
+        button:hover {
+            transform: none !important;
+            box-shadow: none !important;
+            background: var(--pm-surface-3) !important;
+            border-color: var(--pm-border-strong) !important;
+        }
+
+        button:active {
+            transform: none !important;
+        }
+
+        button:disabled {
+            background: var(--pm-surface-3) !important;
+            color: var(--pm-text-faint) !important;
+            border-color: var(--pm-border) !important;
+            opacity: 1 !important;
+            box-shadow: none !important;
+        }
+
+        /* 发送按钮：品牌蓝 */
+        #sendBtn {
+            background: var(--pm-brand) !important;
+            color: #fff !important;
+            border: 1px solid var(--pm-brand) !important;
+            border-radius: 3px 0 0 3px !important;
+            padding: 6px 18px !important;
+        }
+
+        #sendBtn:hover {
+            background: var(--pm-brand-hover) !important;
+            border-color: var(--pm-brand-hover) !important;
+        }
+
+        .send-btn-dropdown {
+            background: var(--pm-brand) !important;
+            color: #fff !important;
+            border: 1px solid var(--pm-brand) !important;
+            border-left: 1px solid rgba(255, 255, 255, 0.35) !important;
+            border-radius: 0 3px 3px 0 !important;
+            box-shadow: none !important;
+        }
+
+        .send-btn-dropdown:hover {
+            background: var(--pm-brand-hover) !important;
+            box-shadow: none !important;
+        }
+
+        .send-btn-group.loading-group #sendBtn {
+            border-radius: 3px !important;
+        }
+
+        /* 次要按钮（保存） */
+        .btn-secondary {
+            background: var(--pm-surface-3) !important;
+            color: var(--pm-text) !important;
+            border: 1px solid var(--pm-border) !important;
+            box-shadow: none !important;
+        }
+
+        .btn-secondary:hover {
+            background: #e7e9ee !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        /* 主按钮：品牌蓝 */
+        .btn-primary {
+            background: var(--pm-brand) !important;
+            color: #fff !important;
+            border: 1px solid var(--pm-brand) !important;
+        }
+
+        .btn-primary:hover {
+            background: var(--pm-brand-hover) !important;
+            border-color: var(--pm-brand-hover) !important;
+        }
+
+        /* 通用操作按钮（导入/导出/工具/添加…）：中性灰 */
+        .btn-action,
+        .history-load-btn,
+        .script-action-btn,
+        .hook-action-btn,
+        .new-request-btn {
+            background: var(--pm-surface) !important;
+            color: var(--pm-text) !important;
+            border: 1px solid var(--pm-border-2) !important;
+            box-shadow: none !important;
+        }
+
+        .btn-action:hover,
+        .history-load-btn:hover,
+        .script-action-btn:hover,
+        .hook-action-btn:hover,
+        .new-request-btn:hover {
+            background: var(--pm-surface-3) !important;
+            border-color: var(--pm-border-strong) !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        /* 危险按钮（删除/清空）：描边红 */
+        .remove-btn,
+        .btn-danger-action {
+            background: #fff !important;
+            color: #e0533d !important;
+            border: 1px solid #f0bcb4 !important;
+            box-shadow: none !important;
+        }
+
+        .remove-btn:hover,
+        .btn-danger-action:hover {
+            background: #fdecea !important;
+            border-color: #e98a7d !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        .hook-action-btn.danger {
+            background: #fff !important;
+            color: #e0533d !important;
+            border: 1px solid #f0bcb4 !important;
+            box-shadow: none !important;
+        }
+
+        .hook-action-btn.danger:hover {
+            background: #fdecea !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        /* 侧栏切换按钮 */
+        .toggle-aside-btn {
+            background: var(--pm-surface) !important;
+            color: var(--pm-text-muted) !important;
+            border: 1px solid var(--pm-border-2) !important;
+            box-shadow: none !important;
+            padding: 6px 8px !important;
+            font-size: 12px !important;
+            border-radius: 3px !important;
+        }
+
+        .toggle-aside-btn:hover {
+            background: var(--pm-surface-3) !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* 新建 Tab 按钮 */
+        .new-tab-btn {
+            color: var(--pm-text-muted) !important;
+            background: transparent !important;
+        }
+
+        .new-tab-btn:hover {
+            background: var(--pm-surface-3) !important;
+            border-radius: 0 !important;
+        }
+
+        /* Tab 关闭按钮 */
+        .tab-close-btn {
+            color: var(--pm-text-faint) !important;
+            border-radius: 3px !important;
+            background: transparent !important;
+        }
+
+        .tab-close-btn:hover {
+            background: #fdecea !important;
+            color: #e0533d !important;
+        }
+
+        /* ---------- HTTP 方法标签（Postman 配色） ---------- */
+        .tab-method {
+            border-radius: 2px !important;
+            font-weight: 700 !important;
+            letter-spacing: .3px;
+        }
+
+        .tab-method.get {
+            background: #e7f6ee !important;
+            color: #1f9d57 !important;
+        }
+
+        .tab-method.post {
+            background: #fbeedd !important;
+            color: #d98324 !important;
+        }
+
+        .tab-method.put {
+            background: #e3f0fc !important;
+            color: #2b7cd3 !important;
+        }
+
+        .tab-method.patch {
+            background: #f0e9fd !important;
+            color: #8b5cf6 !important;
+        }
+
+        .tab-method.delete {
+            background: #fde7e4 !important;
+            color: #e0533d !important;
+        }
+
+        .tab-method.head,
+        .tab-method.options {
+            background: #eef0f3 !important;
+            color: #6b7280 !important;
+        }
+
+        .tab-method.ws,
+        .tab-method.sse {
+            background: #ddf3f8 !important;
+            color: #0e8aa3 !important;
+        }
+
+        /* ---------- 请求 Tab 栏（打开的请求，卡片式） ---------- */
+        .request-tabs-bar {
+            background: var(--pm-surface-3) !important;
+            border: 1px solid var(--pm-border) !important;
+            border-bottom: none !important;
+            border-radius: 4px 4px 0 0 !important;
+        }
+
+        .request-tab-item {
+            background: transparent !important;
+            border-right: 1px solid var(--pm-border) !important;
+            border-radius: 0 !important;
+            color: var(--pm-text-muted) !important;
+        }
+
+        .request-tab-item:hover {
+            background: var(--pm-surface-2) !important;
+        }
+
+        .request-tab-item.active {
+            background: var(--pm-surface) !important;
+            color: var(--pm-text) !important;
+            font-weight: 600 !important;
+            box-shadow: inset 0 2px 0 var(--pm-brand) !important;
+        }
+
+        .tab-scroll-btn {
+            background: var(--pm-surface-3) !important;
+            color: var(--pm-text-muted) !important;
+        }
+
+        .tab-scroll-btn:hover {
+            background: var(--pm-surface-2) !important;
+            color: var(--pm-brand) !important;
+        }
+
+        .tab-scroll-btn.disabled {
+            color: var(--pm-text-faint) !important;
+        }
+
+        /* ---------- URL 区 ---------- */
+        .url-section {
+            background: var(--pm-surface) !important;
+            border: 1px solid var(--pm-border) !important;
+            border-top: 1px solid var(--pm-border) !important;
+            border-radius: 0 0 4px 4px !important;
+        }
+
+        /* 请求方法下拉框加宽，避免 CONNECT/OPTIONS 被遮挡 */
+        #httpMethod {
+            width: 116px !important;
+            min-width: 116px !important;
+            font-weight: 600 !important;
+        }
+
+        /* ---------- 段落 Tab（请求头/请求体…）：下划线式 ---------- */
+        .request-tabs,
+        .response-tabs,
+        .panel-tabs {
+            border-bottom: 1px solid var(--pm-border) !important;
+            gap: 2px !important;
+            margin-bottom: 12px !important;
+            flex-wrap: nowrap !important;
+        }
+
+        .request-tab,
+        .response-tab,
+        .panel-tab {
+            background: transparent !important;
+            border: 1px solid transparent !important;
+            border-bottom: 2px solid transparent !important;
+            border-radius: 0 !important;
+            color: var(--pm-text-muted) !important;
+            margin-bottom: 0 !important;
+            padding: 6px 10px !important;
+            font-weight: 500 !important;
+        }
+
+        .request-tab:hover,
+        .response-tab:hover,
+        .panel-tab:hover {
+            background: var(--pm-surface-3) !important;
+            color: var(--pm-text) !important;
+        }
+
+        .request-tab.active,
+        .response-tab.active,
+        .panel-tab.active {
+            background: transparent !important;
+            color: var(--pm-text) !important;
+            font-weight: 600 !important;
+            border: 1px solid transparent !important;
+            border-bottom: 2px solid var(--pm-brand) !important;
+        }
+
+        /* 左侧段落 Tab（历史/接口/变量/全局头）单行排布，避免换行 */
+        .panel-tab {
+            flex: 1 1 0 !important;
+            min-width: 0 !important;
+            text-align: center !important;
+            white-space: nowrap !important;
+            padding: 6px 4px !important;
+        }
+
+        /* 左侧顶部全局操作按钮（导出/导入/配置/工具/Mock）单行排布，避免拥挤换行 */
+        .global-actions button {
+            flex: 1 1 0 !important;
+            min-width: 0 !important;
+            white-space: nowrap !important;
+            padding: 6px 4px !important;
+            font-size: 12px !important;
+        }
+
+        /* ---------- 表格 ---------- */
+        .headers-table,
+        .variables-table {
+            border: 1px solid var(--pm-border) !important;
+            border-radius: 3px !important;
+            overflow: hidden;
+        }
+
+        .headers-table th,
+        .variables-table th {
+            background: var(--pm-surface-3) !important;
+            color: var(--pm-text) !important;
+            border: 1px solid var(--pm-border) !important;
+            font-weight: 600 !important;
+        }
+
+        .headers-table td,
+        .variables-table td {
+            border: 1px solid var(--pm-border) !important;
+        }
+
+        .headers-table tr:hover td {
+            background: var(--pm-surface-2) !important;
+        }
+
+        .variables-table input[type=text]:focus {
+            border-color: var(--pm-brand) !important;
+            background: #fff !important;
+        }
+
+        .variables-table .remove-btn {
+            background: #fff !important;
+            color: #e0533d !important;
+            border: 1px solid #f0bcb4 !important;
+            box-shadow: none !important;
+            padding: 3px 8px !important;
+            font-size: 11px !important;
+            white-space: nowrap !important;
+        }
+
+        .variables-table .remove-btn:hover {
+            background: #fdecea !important;
+            box-shadow: none !important;
+        }
+
+        /* 操作列加宽 + 居中不换行，删除按钮不再被挤压 */
+        .variables-table .table-col-action {
+            width: 72px !important;
+        }
+
+        .variables-table td:last-child {
+            width: 72px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        /* 表格单元格收紧一点，左侧整体更宽松 */
+        .variables-table th,
+        .variables-table td {
+            padding: 4px 5px !important;
+        }
+
+        /* ---------- 表单/请求体行 ---------- */
+        .formdata-row,
+        .body-row {
+            background: var(--pm-surface-2) !important;
+            border: 1px solid var(--pm-border) !important;
+            border-radius: 3px !important;
+        }
+
+        .file-preview-item {
+            background: #e3f0fc !important;
+            color: #2b7cd3 !important;
+            border-radius: 2px !important;
+        }
+
+        .formdata-value .file-input::-webkit-file-upload-button {
+            background: var(--pm-surface-3) !important;
+            color: var(--pm-text) !important;
+            border: 1px solid var(--pm-border-2) !important;
+            border-radius: 2px !important;
+        }
+
+        .body-type-radio label {
+            background: var(--pm-surface) !important;
+            border: 1px solid var(--pm-border-2) !important;
+            border-radius: 3px !important;
+            color: var(--pm-text) !important;
+        }
+
+        .body-type-radio label:hover {
+            background: var(--pm-surface-3) !important;
+        }
+
+        .body-type-radio label:has(input:checked) {
+            background: var(--pm-brand-soft) !important;
+            color: var(--pm-brand) !important;
+            border-color: var(--pm-brand) !important;
+            font-weight: 600 !important;
+        }
+
+        /* ---------- 响应区 ---------- */
+        .response-section {
+            border-top: 1px solid var(--pm-border) !important;
+        }
+
+        .response-info {
+            background: var(--pm-surface-2) !important;
+            border: 1px solid var(--pm-border) !important;
+            border-radius: 3px !important;
+        }
+
+        #responseBody,
+        .textarea-body,
+        .body-content textarea,
+        .body-remark,
+        #wsBodyRows .ws-body-text,
+        #wsBodyRows .body-remark,
+        .script-textarea,
+        .hook-textarea,
+        .setting-input {
+            background: var(--pm-surface-2) !important;
+            border: 1px solid var(--pm-border) !important;
+            border-radius: 3px !important;
+            color: var(--pm-text) !important;
+        }
+
+        .script-textarea:focus,
+        .hook-textarea:focus {
+            border-color: var(--pm-brand) !important;
+            box-shadow: 0 0 0 3px var(--pm-brand-ring) !important;
+            background: #fff !important;
+        }
+
+        .divider {
+            border-top: 1px solid var(--pm-border) !important;
+        }
+
+        /* ---------- Hook 区块 / 控制台 ---------- */
+        .hook-section,
+        .hook-console {
+            border: 1px solid var(--pm-border) !important;
+            border-radius: 3px !important;
+        }
+
+        .hook-section-header {
+            background: var(--pm-surface-3) !important;
+            border-bottom: 1px solid var(--pm-border) !important;
+        }
+
+        .hook-section-title,
+        .script-section-title {
+            color: var(--pm-text) !important;
+        }
+
+        .hook-console-header {
+            background: #2b2f38 !important;
+            color: #e6e8eb !important;
+        }
+
+        .hook-console-clear {
+            background: rgba(255, 255, 255, 0.12) !important;
+            color: #fff !important;
+            border: none !important;
+        }
+
+        .hook-console-output {
+            background: #1e2127 !important;
+            color: #d4d4d4 !important;
+        }
+
+        .hook-console-line.info {
+            color: #6cb6ff !important;
+        }
+
+        .hook-console-line.success {
+            color: #98c379 !important;
+        }
+
+        .hook-console-line.error {
+            color: #e06c75 !important;
+        }
+
+        .hook-console-line.warn {
+            color: #e5c07b !important;
+        }
+
+        .hook-console-time {
+            color: #6b7280 !important;
+        }
+
+        /* ---------- 下拉菜单 ---------- */
+        .send-dropdown-menu,
+        .hook-example-menu {
+            background: #fff !important;
+            border: 1px solid var(--pm-border) !important;
+            border-radius: 3px !important;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.14) !important;
+        }
+
+        .send-dropdown-menu div,
+        .hook-example-item {
+            color: var(--pm-text) !important;
+        }
+
+        .hook-example-item {
+            border-bottom: 1px solid var(--pm-border) !important;
+        }
+
+        .send-dropdown-menu div:hover,
+        .hook-example-item:hover {
+            background: var(--pm-brand-soft) !important;
+            color: var(--pm-brand) !important;
+        }
+
+        /* ---------- 历史列表 ---------- */
+        .global-actions {
+            border-bottom: 1px solid var(--pm-border) !important;
+        }
+
+        .history-item {
+            background: var(--pm-surface) !important;
+            border: 1px solid var(--pm-border) !important;
+            border-radius: 3px !important;
+        }
+
+        .history-item:hover {
+            background: var(--pm-surface-2) !important;
+            border-color: var(--pm-brand) !important;
+        }
+
+        .history-method {
+            background: none !important;
+            -webkit-text-fill-color: initial !important;
+            color: var(--pm-brand) !important;
+            font-weight: 700 !important;
+        }
+
+        .history-url {
+            color: var(--pm-text-muted) !important;
+        }
+
+        .history-time {
+            color: var(--pm-text-faint) !important;
+        }
+
+        /* ---------- 设置弹窗 ---------- */
+        .settings-dialog {
+            background: var(--pm-surface) !important;
+            border: 1px solid var(--pm-border) !important;
+            border-radius: 6px !important;
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18) !important;
+        }
+
+        .settings-dialog h3 {
+            border-bottom: 1px solid var(--pm-border) !important;
+            color: var(--pm-text) !important;
+        }
+
+        .settings-group label {
+            color: var(--pm-text) !important;
+        }
+
+        .dialog-overlay {
+            background: rgba(15, 23, 42, 0.4) !important;
+            backdrop-filter: blur(2px) !important;
+        }
+
+        /* ---------- JSON 响应查看器（深色 IDE 风） ---------- */
+        .json-formatted {
+            background: #21232a !important;
+            color: #d4d4d4 !important;
+            border: 1px solid #313540 !important;
+            border-radius: 3px !important;
+        }
+
+        .json-formatted .json-key {
+            color: #6cb6ff !important;
+        }
+
+        .json-formatted .json-string {
+            color: #98c379 !important;
+        }
+
+        .json-formatted .json-number {
+            color: #e5c07b !important;
+        }
+
+        .json-formatted .json-boolean,
+        .json-formatted .json-null {
+            color: #c678dd !important;
+        }
+
+        .json-formatted .json-bracket {
+            color: #abb2bf !important;
+        }
+
+        .json-formatted .json-arrow {
+            color: #61afef !important;
+        }
+
+        .json-formatted .json-arrow:hover {
+            color: #6cb6ff !important;
+        }
+
+        .json-formatted .json-container {
+            border-left: 1px solid #3a3f4b !important;
+        }
+
+        /* ---------- HTTP 状态码颜色 ---------- */
+        .httpStatus1 {
+            background: #6b7280 !important;
+            color: #fff !important;
+        }
+
+        .httpStatus2 {
+            background: #16a34a !important;
+            color: #fff !important;
+        }
+
+        .httpStatus3 {
+            background: #2563eb !important;
+            color: #fff !important;
+        }
+
+        .httpStatus4 {
+            background: #d97706 !important;
+            color: #fff !important;
+        }
+
+        .httpStatus5 {
+            background: #dc2626 !important;
+            color: #fff !important;
+        }
+
+        /* ---------- loading 指示器 ---------- */
+        .loading::after {
+            border-color: rgba(255, 255, 255, 0.6) !important;
+            border-top-color: transparent !important;
+        }
+
+        /* ---------- 滚动条（中性灰，去掉紫色渐变） ---------- */
+        .aside::-webkit-scrollbar-track,
+        .json-body-formatted::-webkit-scrollbar-track,
+        .json-formatted::-webkit-scrollbar-track {
+            background: transparent !important;
+        }
+
+        .aside::-webkit-scrollbar-thumb,
+        .json-body-formatted::-webkit-scrollbar-thumb,
+        .json-formatted::-webkit-scrollbar-thumb {
+            background: #c4c9d0 !important;
+            border-radius: 3px !important;
+        }
+
+        .aside::-webkit-scrollbar-thumb:hover,
+        .json-formatted::-webkit-scrollbar-thumb:hover {
+            background: #aab0b8 !important;
+        }
+    </style>
 </head>
 
 <body>

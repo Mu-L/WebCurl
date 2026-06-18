@@ -1788,12 +1788,14 @@ func handleSSEEchoRequest(w http.ResponseWriter, r *http.Request) {
 		// default模式，恢复原有逻辑
 		for i := 0; i < sseCount; i++ {
 			msg := map[string]any{
-				"method":    response.Method,
-				"url":       response.URL,
-				"headers":   response.Headers,
-				"body":      response.Body,
-				"sse_index": i + 1,
-				"sse_count": sseCount,
+				"method":      response.Method,
+				"url":         response.URL,
+				"client_ip":   response.ClientIP,
+				"client_port": response.ClientPort,
+				"headers":     response.Headers,
+				"body":        response.Body,
+				"sse_index":   i + 1,
+				"sse_count":   sseCount,
 			}
 			event := "message"
 			if i%2 == 0 {
@@ -2037,12 +2039,14 @@ func handleWebSocketEchoRequest(w http.ResponseWriter, r *http.Request) {
 		// default模式，恢复原有逻辑
 		for i := 0; i < wsCount; i++ {
 			msg := map[string]any{
-				"method":   response.Method,
-				"url":      response.URL,
-				"headers":  response.Headers,
-				"body":     response.Body,
-				"ws_index": i + 1,
-				"ws_count": wsCount,
+				"method":      response.Method,
+				"url":         response.URL,
+				"client_ip":   response.ClientIP,
+				"client_port": response.ClientPort,
+				"headers":     response.Headers,
+				"body":        response.Body,
+				"ws_index":    i + 1,
+				"ws_count":    wsCount,
 			}
 			msgBytes, _ := json.Marshal(msg)
 			var err error
@@ -2139,6 +2143,9 @@ func processRequest(r *http.Request) (*EchoResponse, int) {
 	// 获取请求完整URL
 	fullURL := getFullURL(r)
 
+	// 获取客户端 IP 和端口
+	clientIP, clientPort := getClientIPPort(r)
+
 	// 处理请求头
 	var headers []HeaderKV
 	for k, v := range r.Header {
@@ -2180,20 +2187,34 @@ func processRequest(r *http.Request) (*EchoResponse, int) {
 	}
 
 	return &EchoResponse{
-		Method:  r.Method,
-		URL:     fullURL,
-		Headers: headers,
-		Body:    bodyContent,
+		Method:     r.Method,
+		URL:        fullURL,
+		ClientIP:   clientIP,
+		ClientPort: clientPort,
+		Headers:    headers,
+		Body:       bodyContent,
 	}, http.StatusOK
+}
+
+// getClientIPPort 从请求中解析客户端 IP 和端口（来源 r.RemoteAddr，正确处理 IPv6）
+func getClientIPPort(r *http.Request) (ip, port string) {
+	host, port, err := net.SplitHostPort(r.RemoteAddr)
+	if err != nil {
+		// RemoteAddr 不含端口时，整体作为 IP 返回
+		return r.RemoteAddr, ""
+	}
+	return host, port
 }
 
 // EchoResponse Echo响应结构
 type EchoResponse struct {
-	XMLName xml.Name   `json:"-" xml:"response"`
-	Method  string     `json:"method" xml:"method"`
-	URL     string     `json:"url" xml:"url"`
-	Headers []HeaderKV `json:"headers" xml:"headers>header"`
-	Body    any        `json:"body,omitempty" xml:"body,omitempty"`
+	XMLName    xml.Name   `json:"-" xml:"response"`
+	Method     string     `json:"method" xml:"method"`
+	URL        string     `json:"url" xml:"url"`
+	ClientIP   string     `json:"client_ip" xml:"client_ip"`
+	ClientPort string     `json:"client_port" xml:"client_port"`
+	Headers    []HeaderKV `json:"headers" xml:"headers>header"`
+	Body       any        `json:"body,omitempty" xml:"body,omitempty"`
 }
 
 type HeaderKV struct {
@@ -2354,6 +2375,8 @@ func (e *EchoResponse) String() string {
 	var sb strings.Builder
 	sb.WriteString(fmt.Sprintf("Method: %s\n", e.Method))
 	sb.WriteString(fmt.Sprintf("URL: %s\n", e.URL))
+	sb.WriteString(fmt.Sprintf("ClientIP: %s\n", e.ClientIP))
+	sb.WriteString(fmt.Sprintf("ClientPort: %s\n", e.ClientPort))
 	sb.WriteString("\n--- Headers ---\n")
 	for _, h := range e.Headers {
 		sb.WriteString(fmt.Sprintf("%s: %s\n", h.Key, h.Value))
